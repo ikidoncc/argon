@@ -5,6 +5,7 @@ const posts = defineCollection({
   loader: glob({
     pattern: '**/index.md',
     base: './src/content',
+    generateId: ({ entry }) => entry.replace(/\/index\.md$/, ''),
   }),
   schema: ({ image }) =>
     z.object({
