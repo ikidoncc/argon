@@ -10,7 +10,6 @@ import PageLayout from '../layouts/PageLayout.astro';
     <div class="about-grid">
       <!-- Profile Card -->
       <section class="glass-card profile-card">
-        <div class="profile-glow"></div>
         <h2 class="profile-name">Argon Maintainer</h2>
         <p class="profile-title">Systems & Infrastructure Engineer</p>
         <p class="profile-bio">
@@ -103,20 +102,6 @@ import PageLayout from '../layouts/PageLayout.astro';
     text-align: center;
     overflow: hidden;
     align-self: start;
-  }
-
-  .profile-glow {
-    position: absolute;
-    top: -30%;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(
-      circle,
-      var(--color-accent-glow) 0%,
-      rgba(255, 255, 255, 0) 75%
-    );
-    z-index: -1;
-    filter: blur(30px);
   }
 
   .profile-name {
