@@ -30,6 +30,12 @@ const canonicalURL = new URL(
       type="image/svg+xml"
       href={`${import.meta.env.BASE_URL}favicon.svg`}
     />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Argon RSS Feed"
+      href={`${import.meta.env.BASE_URL}rss.xml`}
+    />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
@@ -146,6 +152,9 @@ const canonicalURL = new URL(
         <p class="footer-desc">
           A blog about Systems Engineering & Distributed Infrastructure.
         </p>
+        <a href={`${import.meta.env.BASE_URL}rss.xml`} class="rss-link">
+          RSS Feed
+        </a>
       </div>
     </footer>
 
@@ -282,7 +291,18 @@ const canonicalURL = new URL(
   .footer-desc {
     font-size: 0.85rem;
     color: var(--color-text-muted);
-    margin-bottom: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  .rss-link {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    transition: var(--transition-fast);
+  }
+
+  .rss-link:hover {
+    color: var(--color-primary);
   }
 
   @media (max-width: 600px) {
