@@ -38,13 +38,7 @@ const { title, description } = Astro.props;
     line-height: 1.1;
     letter-spacing: -0.04em;
     margin-bottom: 1rem;
-    background: linear-gradient(
-      135deg,
-      var(--color-text) 30%,
-      var(--color-text-muted) 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--color-text);
   }
 
   .page-desc {
@@ -56,11 +50,7 @@ const { title, description } = Astro.props;
 
   .page-divider {
     height: 1px;
-    background: linear-gradient(
-      90deg,
-      var(--color-border) 0%,
-      rgba(255, 255, 255, 0) 100%
-    );
+    background: var(--color-border);
     margin-top: 2rem;
   }
 
