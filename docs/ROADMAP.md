@@ -65,7 +65,7 @@ Enable automatic deployment.
 - [x] Create deployment workflow
 - [x] Configure Astro output
 - [x] Configure base URL
-- [ ] Test production deployment
+- [x] Test production deployment
 
 ### Deliverable
 
