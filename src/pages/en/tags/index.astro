@@ -1,11 +1,11 @@
 ---
-import PageLayout from '../../layouts/PageLayout.astro';
-import { getPosts } from '../../utils/posts';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import { getPosts } from '../../../utils/posts';
 import {
   getLangFromUrl,
   useTranslations,
   getLocalizedLink,
-} from '../../utils/i18n';
+} from '../../../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);

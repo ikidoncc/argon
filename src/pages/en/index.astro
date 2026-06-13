@@ -1,0 +1,287 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getPosts } from '../../utils/posts';
+import {
+  getLangFromUrl,
+  useTranslations,
+  getLocalizedLink,
+} from '../../utils/i18n';
+import { ArrowRight } from '@lucide/astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const posts = await getPosts(lang);
+
+// Formatting the date helper
+const formatDate = (date: Date) => {
+  return new Date(date).toLocaleDateString(lang === 'en' ? 'en-US' : 'pt-BR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+};
+---
+
+<Layout title={`Argon | ${t('hero.title')}`}>
+  <section class="hero-section">
+    <div class="container hero-container">
+      <h1 class="hero-title">
+        {
+          lang === 'en' ? (
+            <>
+              Exploring <span class="text-brand-primary">Technology</span>,{' '}
+              <span class="text-brand-primary">Science</span>, and{' '}
+              <span class="text-brand-primary">Lifelong Learning</span>
+            </>
+          ) : (
+            <>
+              Explorando <span class="text-brand-primary">Tecnologia</span>,{' '}
+              <span class="text-brand-primary">Ciência</span> e{' '}
+              <span class="text-brand-primary">Aprendizado Contínuo</span>
+            </>
+          )
+        }
+      </h1>
+      <p class="hero-subtitle">
+        {t('hero.subtitle')}
+      </p>
+    </div>
+  </section>
+
+  <section class="posts-section container">
+    <h2 class="section-title">{t('home.latest')}</h2>
+
+    {
+      posts.length === 0 ? (
+        <div class="glass-card no-posts">
+          <p>{t('home.noPosts')}</p>
+        </div>
+      ) : (
+        <div class="posts-grid">
+          {posts.map((post) => (
+            <article class="glass-card post-card">
+              {post.data.cover && (
+                <a
+                  href={getLocalizedLink(`posts/${post.data.slug}`, lang)}
+                  class="post-cover-link"
+                >
+                  <div class="post-cover-wrapper">
+                    <img
+                      src={post.data.cover.src}
+                      alt={post.data.title}
+                      class="post-cover"
+                    />
+                  </div>
+                </a>
+              )}
+              <div class="post-content">
+                <div class="post-meta">
+                  <time datetime={post.data.date.toISOString()}>
+                    {formatDate(post.data.date)}
+                  </time>
+                  <div class="post-tags">
+                    {post.data.tags.slice(0, 2).map((tag) => (
+                      <span class="post-tag">#{tag}</span>
+                    ))}
+                  </div>
+                </div>
+                <h3 class="post-title">
+                  <a href={getLocalizedLink(`posts/${post.data.slug}`, lang)}>
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p class="post-excerpt">
+                  {post.data.description ||
+                    (lang === 'en'
+                      ? `Deep dive exploration of ${post.data.title.toLowerCase()}. Learn the core principles, design choices, and systems architecture.`
+                      : `Análise profunda sobre ${post.data.title.toLowerCase()}. Aprenda os princípios fundamentais, escolhas de design e arquitetura de sistemas.`)}
+                </p>
+                <a
+                  href={getLocalizedLink(`posts/${post.data.slug}`, lang)}
+                  class="read-more-btn"
+                >
+                  {t('post.readMore')}
+                  <ArrowRight class="arrow-icon" size={16} strokeWidth={2.5} />
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    padding: 6rem 0 4rem;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .hero-container {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.05em;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+  }
+
+  .text-brand-primary {
+    color: var(--color-primary);
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Posts Grid */
+  .posts-section {
+    padding-bottom: 6rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    letter-spacing: -0.03em;
+  }
+
+  .no-posts {
+    padding: 3rem;
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-cols: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .posts-grid {
+      grid-template-cols: repeat(2, 1fr);
+    }
+  }
+
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .post-cover-link {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .post-cover-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .post-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+  }
+
+  .post-card:hover .post-cover {
+    transform: scale(1.03);
+  }
+
+  .post-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .post-tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .post-tag {
+    color: var(--color-secondary);
+    font-weight: 600;
+  }
+
+  .post-title {
+    font-size: 1.35rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  .post-title a {
+    color: var(--color-text);
+    transition: var(--transition-fast);
+  }
+
+  .post-title a:hover {
+    color: var(--color-primary);
+  }
+
+  .post-excerpt {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+    flex: 1;
+  }
+
+  .read-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-primary);
+    transition: var(--transition-fast);
+  }
+
+  .read-more-btn:hover {
+    color: var(--color-primary-hover);
+  }
+
+  .arrow-icon {
+    transition: transform 0.2s ease;
+  }
+
+  .read-more-btn:hover .arrow-icon {
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+  }
+</style>

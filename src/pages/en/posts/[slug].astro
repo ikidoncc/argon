@@ -1,7 +1,7 @@
 ---
 import { render } from 'astro:content';
-import { getPosts } from '../../utils/posts';
-import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getPosts } from '../../../utils/posts';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getPosts('en');

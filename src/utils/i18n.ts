@@ -144,14 +144,10 @@ export function getLocalizedPath(url: URL, targetLang: string) {
 
   const pathParts = relativePath.split('/').filter(Boolean);
 
-  if (pathParts[0] === 'pt') {
-    if (targetLang === 'en') {
-      pathParts.shift();
-    }
+  if (pathParts[0] === 'pt' || pathParts[0] === 'en') {
+    pathParts[0] = targetLang;
   } else {
-    if (targetLang === 'pt') {
-      pathParts.unshift('pt');
-    }
+    pathParts.unshift(targetLang);
   }
 
   // Join and reconstruct absolute path with base
@@ -159,19 +155,14 @@ export function getLocalizedPath(url: URL, targetLang: string) {
     `/${base}/${pathParts.join('/')}/`.replace(/\/+/g, '/').replace(/\/$/, '') +
     '/'; // ensure trailing slash
 
-  // Match root slash logic if empty pathParts and target is English
-  if (pathParts.length === 0) {
-    return base;
-  }
-
   return reconstructed;
 }
 
 export function getLocalizedLink(path: string, lang: string) {
   const base = import.meta.env.BASE_URL;
   const cleanPath = path.replace(/^\//, '');
-  if (lang === 'en') {
-    return `${base}${cleanPath}`;
-  }
-  return `${base}pt/${cleanPath}`;
+  return (
+    `/${base}/${lang}/${cleanPath}/`.replace(/\/+/g, '/').replace(/\/$/, '') +
+    '/'
+  );
 }

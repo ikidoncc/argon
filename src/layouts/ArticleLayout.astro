@@ -1,7 +1,11 @@
 ---
 import Layout from './Layout.astro';
 import type { Post } from '../utils/posts';
-import { getLangFromUrl, useTranslations, getLocalizedLink } from '../utils/i18n';
+import {
+  getLangFromUrl,
+  useTranslations,
+  getLocalizedLink,
+} from '../utils/i18n';
 import { ChevronLeft } from '@lucide/astro';
 
 interface Props {
@@ -15,11 +19,14 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 // Formatting the date nicely
-const formattedDate = new Date(date).toLocaleDateString(lang === 'en' ? 'en-US' : 'pt-BR', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+const formattedDate = new Date(date).toLocaleDateString(
+  lang === 'en' ? 'en-US' : 'pt-BR',
+  {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
+);
 ---
 
 <Layout

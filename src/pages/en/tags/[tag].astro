@@ -1,6 +1,6 @@
 ---
-import { getPosts } from '../../utils/posts';
-import TagPageContent from '../../components/TagPageContent.astro';
+import { getPosts } from '../../../utils/posts';
+import TagPageContent from '../../../components/TagPageContent.astro';
 
 export async function getStaticPaths() {
   const posts = await getPosts('en');
