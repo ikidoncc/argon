@@ -8,5 +8,5 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   site: 'https://ikidoncc.github.io',
-  base: '/argon',
+  base: '/argon/',
 });
