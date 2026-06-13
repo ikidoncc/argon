@@ -1,27 +1,75 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import {
+  getLangFromUrl,
+  useTranslations,
+  getLocalizedLink,
+} from '../utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<PageLayout
-  title="404: Page Not Found"
-  description="The page you are looking for does not exist or has been moved."
->
+<PageLayout title={t('404.title')} description={t('404.desc')}>
   <div class="error-container">
     <div class="error-code">404</div>
-    <p class="error-text">
-      We couldn't find the resource you were looking for. Use the links below to
-      find your way back.
+    <p class="error-text" data-error-text>
+      {t('404.body')}
     </p>
     <div class="actions">
-      <a href={import.meta.env.BASE_URL} class="btn btn-primary">
-        Go Back Home
+      <a
+        href={getLocalizedLink('/', lang)}
+        class="btn btn-primary"
+        data-home-btn
+      >
+        {t('404.home')}
       </a>
-      <a href={`${import.meta.env.BASE_URL}search`} class="btn btn-secondary">
-        Search Articles
+      <a
+        href={getLocalizedLink('/search', lang)}
+        class="btn btn-secondary"
+        data-search-btn
+      >
+        {t('404.search')}
       </a>
     </div>
   </div>
 </PageLayout>
+
+<script>
+  import { useTranslations, getLocalizedLink } from '../utils/i18n';
+
+  // Static hosts serve a single 404.html.
+  // We can read window.location on load to adjust links and text if the path is in Portuguese.
+  const path = window.location.pathname;
+  const isPt = path.includes('/pt/') || path.endsWith('/pt');
+
+  if (isPt) {
+    const lang = 'pt';
+    const t = useTranslations(lang);
+
+    const errorTextEl = document.querySelector('[data-error-text]');
+    if (errorTextEl) errorTextEl.textContent = t('404.body');
+
+    const homeBtn = document.querySelector(
+      '[data-home-btn]'
+    ) as HTMLAnchorElement;
+    if (homeBtn) {
+      homeBtn.href = getLocalizedLink('/', lang);
+      homeBtn.textContent = t('404.home');
+    }
+
+    const searchBtn = document.querySelector(
+      '[data-search-btn]'
+    ) as HTMLAnchorElement;
+    if (searchBtn) {
+      searchBtn.href = getLocalizedLink('/search', lang);
+      searchBtn.textContent = t('404.search');
+    }
+
+    // Update page title
+    document.title = `${t('404.title')} | Argon`;
+  }
+</script>
 
 <style>
   .error-container {

@@ -1,20 +1,20 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import { getLangFromUrl, useTranslations } from '../utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<PageLayout
-  title="About Argon"
-  description="Learn more about the project, the author, and the stack."
->
+<PageLayout title={t('about.title')} description={t('about.desc')}>
   <div class="about-container">
     <div class="about-grid">
       <!-- Profile Card -->
       <section class="glass-card profile-card">
-        <h2 class="profile-name">Argon Maintainer</h2>
-        <p class="profile-title">Systems & Infrastructure Engineer</p>
+        <h2 class="profile-name">{t('about.maintainer')}</h2>
+        <p class="profile-title">{t('about.maintainer.title')}</p>
         <p class="profile-bio">
-          Passionate about building highly scalable distributed backends,
-          investigating database internals, and optimizing software performance.
+          {t('about.maintainer.bio')}
         </p>
         <div class="social-links">
           <a
@@ -23,7 +23,7 @@ import PageLayout from '../layouts/PageLayout.astro';
             rel="noopener noreferrer"
             class="btn btn-primary"
           >
-            GitHub Profile
+            {t('about.githubProfile')}
           </a>
         </div>
       </section>
@@ -31,42 +31,32 @@ import PageLayout from '../layouts/PageLayout.astro';
       <!-- Project details -->
       <div class="about-info">
         <section class="info-section">
-          <h3>The Mission</h3>
+          <h3>{t('about.mission')}</h3>
           <p>
-            Argon was created to serve as a high-quality, personal journal for
-            documenting technical explorations, implementation details, and
-            systems engineering concepts.
+            {t('about.mission.1')}
           </p>
           <p>
-            By sharing detailed write-ups on networking protocols, database
-            engines, and runtime systems, the goal is to contribute clean,
-            accessible reference material to the developer community.
+            {t('about.mission.2')}
           </p>
         </section>
 
         <section class="info-section">
-          <h3>The Technology Stack</h3>
+          <h3>{t('about.stack')}</h3>
           <p>
-            Argon is built on modern static-site architectures to achieve
-            near-instantaneous load times, top-tier SEO rating, and simple
-            maintenance:
+            {t('about.stack.desc')}
           </p>
           <ul class="stack-list">
             <li>
-              <strong>Astro v6</strong>: The web framework for building
-              content-focused websites.
+              <strong>Astro v6</strong>: {t('about.stack.astro')}
             </li>
             <li>
-              <strong>Tailwind CSS v4</strong>: Utilizes the new Vite engine for
-              high-speed utility compilation.
+              <strong>Tailwind CSS v4</strong>: {t('about.stack.tailwind')}
             </li>
             <li>
-              <strong>GitHub Pages & Actions</strong>: Automated integration and
-              deployment pipeline.
+              <strong>GitHub Pages & Actions</strong>: {t('about.stack.github')}
             </li>
             <li>
-              <strong>Markdown & Schema</strong>: Formatted content verified
-              through Content Collections schemas.
+              <strong>Markdown & Schema</strong>: {t('about.stack.markdown')}
             </li>
           </ul>
         </section>

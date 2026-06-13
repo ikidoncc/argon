@@ -1,12 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getPosts } from '../utils/posts';
+import {
+  getLangFromUrl,
+  useTranslations,
+  getLocalizedLink,
+} from '../utils/i18n';
 
-const posts = await getPosts();
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const posts = await getPosts(lang);
 
 // Formatting the date helper
 const formatDate = (date: Date) => {
-  return new Date(date).toLocaleDateString('en-US', {
+  return new Date(date).toLocaleDateString(lang === 'en' ? 'en-US' : 'pt-BR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -14,30 +21,39 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<Layout title="Argon | Exploring Technology, Science, and Lifelong Learning">
+<Layout title={`Argon | ${t('hero.title')}`}>
   <section class="hero-section">
     <div class="container hero-container">
       <h1 class="hero-title">
-        Exploring <span class="text-brand-primary">Technology</span>, <span
-          class="text-brand-primary">Science</span
-        >, and <span class="text-brand-primary">Lifelong Learning</span>
+        {
+          lang === 'en' ? (
+            <>
+              Exploring <span class="text-brand-primary">Technology</span>,{' '}
+              <span class="text-brand-primary">Science</span>, and{' '}
+              <span class="text-brand-primary">Lifelong Learning</span>
+            </>
+          ) : (
+            <>
+              Explorando <span class="text-brand-primary">Tecnologia</span>,{' '}
+              <span class="text-brand-primary">Ciência</span> e{' '}
+              <span class="text-brand-primary">Aprendizado Contínuo</span>
+            </>
+          )
+        }
       </h1>
       <p class="hero-subtitle">
-        Argon is a personal blog and knowledge repository where I share
-        articles, notes, experiments, and insights about software engineering,
-        computer science, mathematics, physics, and anything else worth
-        understanding.
+        {t('hero.subtitle')}
       </p>
     </div>
   </section>
 
   <section class="posts-section container">
-    <h2 class="section-title">Latest Articles</h2>
+    <h2 class="section-title">{t('home.latest')}</h2>
 
     {
       posts.length === 0 ? (
         <div class="glass-card no-posts">
-          <p>No articles published yet. Check back soon!</p>
+          <p>{t('home.noPosts')}</p>
         </div>
       ) : (
         <div class="posts-grid">
@@ -45,7 +61,7 @@ const formatDate = (date: Date) => {
             <article class="glass-card post-card">
               {post.data.cover && (
                 <a
-                  href={`${import.meta.env.BASE_URL}posts/${post.data.slug}`}
+                  href={getLocalizedLink(`posts/${post.data.slug}`, lang)}
                   class="post-cover-link"
                 >
                   <div class="post-cover-wrapper">
@@ -69,22 +85,21 @@ const formatDate = (date: Date) => {
                   </div>
                 </div>
                 <h3 class="post-title">
-                  <a
-                    href={`${import.meta.env.BASE_URL}posts/${post.data.slug}`}
-                  >
+                  <a href={getLocalizedLink(`posts/${post.data.slug}`, lang)}>
                     {post.data.title}
                   </a>
                 </h3>
                 <p class="post-excerpt">
-                  Deep dive exploration of {post.data.title.toLowerCase()}.
-                  Learn the core principles, design choices, and systems
-                  architecture.
+                  {post.data.description ||
+                    (lang === 'en'
+                      ? `Deep dive exploration of ${post.data.title.toLowerCase()}. Learn the core principles, design choices, and systems architecture.`
+                      : `Análise profunda sobre ${post.data.title.toLowerCase()}. Aprenda os princípios fundamentais, escolhas de design e arquitetura de sistemas.`)}
                 </p>
                 <a
-                  href={`${import.meta.env.BASE_URL}posts/${post.data.slug}`}
+                  href={getLocalizedLink(`posts/${post.data.slug}`, lang)}
                   class="read-more-btn"
                 >
-                  Read Article
+                  {t('post.readMore')}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
