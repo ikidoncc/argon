@@ -102,11 +102,11 @@ Create the visual foundation of the site.
 
 ### Tasks
 
-- [ ] Create global layout
-- [ ] Create article layout
-- [ ] Create page layout
-- [ ] Configure typography
-- [ ] Configure responsive design
+- [x] Create global layout
+- [x] Create article layout
+- [x] Create page layout
+- [x] Configure typography
+- [x] Configure responsive design
 
 ### Deliverable
 
