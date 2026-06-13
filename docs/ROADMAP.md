@@ -122,11 +122,11 @@ Provide the main content entry point.
 
 ### Tasks
 
-- [ ] List latest articles
-- [ ] Display article metadata
-- [ ] Display article tags
-- [ ] Display publication date
-- [ ] Display article cover image
+- [x] List latest articles
+- [x] Display article metadata
+- [x] Display article tags
+- [x] Display publication date
+- [x] Display article cover image
 
 ### Deliverable
 
@@ -142,12 +142,12 @@ Render article content.
 
 ### Tasks
 
-- [ ] Render Markdown
-- [ ] Render images
-- [ ] Render code blocks
-- [ ] Render tables
-- [ ] Render videos
-- [ ] Render internal links
+- [x] Render Markdown
+- [x] Render images
+- [x] Render code blocks
+- [x] Render tables
+- [x] Render videos
+- [x] Render internal links
 
 ### Deliverable
 
@@ -386,7 +386,7 @@ Prepare for public release.
 
 ### Tasks
 
-- [ ] Publish welcome article
+- [x] Publish welcome article
 - [ ] Validate all links
 - [ ] Validate SEO
 - [ ] Validate RSS
@@ -397,7 +397,7 @@ Prepare for public release.
 
 ### Success Criteria
 
-- [ ] Lighthouse score ≥ 95
+- [ ] Lighthouse score &ge; 95
 - [ ] Build succeeds
 - [ ] Deployment succeeds
 - [ ] Search works
