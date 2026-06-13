@@ -41,7 +41,7 @@ const formatDate = (date: Date) => {
           <article class="glass-card post-card">
             {post.data.cover && (
               <a
-                href={`${Astro.site?.pathname || '/argon/'}posts/${post.data.slug}`}
+                href={`${import.meta.env.BASE_URL}posts/${post.data.slug}`}
                 class="post-cover-link"
               >
                 <div class="post-cover-wrapper">
@@ -65,9 +65,7 @@ const formatDate = (date: Date) => {
                 </div>
               </div>
               <h3 class="post-title">
-                <a
-                  href={`${Astro.site?.pathname || '/argon/'}posts/${post.data.slug}`}
-                >
+                <a href={`${import.meta.env.BASE_URL}posts/${post.data.slug}`}>
                   {post.data.title}
                 </a>
               </h3>
@@ -76,7 +74,7 @@ const formatDate = (date: Date) => {
                 the core principles, design choices, and systems architecture.
               </p>
               <a
-                href={`${Astro.site?.pathname || '/argon/'}posts/${post.data.slug}`}
+                href={`${import.meta.env.BASE_URL}posts/${post.data.slug}`}
                 class="read-more-btn"
               >
                 Read Article

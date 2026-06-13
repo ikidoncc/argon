@@ -29,7 +29,7 @@ const tags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]);
         <div class="tags-grid">
           {tags.map((tag) => (
             <a
-              href={`${Astro.site?.pathname || '/argon/'}tags/${tag}`}
+              href={`${import.meta.env.BASE_URL}tags/${tag}`}
               class="tag-card glass-card"
             >
               <span class="tag-hash">#</span>

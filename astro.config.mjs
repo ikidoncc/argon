@@ -7,6 +7,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: 'https://ikidon.github.io',
+  site: 'https://ikidoncc.github.io',
   base: '/argon',
 });

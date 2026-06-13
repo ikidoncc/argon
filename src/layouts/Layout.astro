@@ -16,7 +16,7 @@ const {
 // Determine current URL for canonical links
 const canonicalURL = new URL(
   Astro.url.pathname,
-  Astro.site || 'https://ikidon.github.io/argon'
+  Astro.site || 'https://ikidoncc.github.io/argon'
 );
 ---
 
@@ -28,7 +28,7 @@ const canonicalURL = new URL(
     <link
       rel="icon"
       type="image/svg+xml"
-      href={`${Astro.site?.pathname || '/argon'}favicon.svg`}
+      href={`${import.meta.env.BASE_URL}favicon.svg`}
     />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -78,13 +78,13 @@ const canonicalURL = new URL(
   <body>
     <header class="header">
       <div class="container header-container">
-        <a href={`${Astro.site?.pathname || '/argon/'}`} class="logo">
+        <a href={import.meta.env.BASE_URL} class="logo">
           <span class="logo-accent">&gt;_</span> Argon
         </a>
         <nav class="nav">
-          <a href={`${Astro.site?.pathname || '/argon/'}`}>Home</a>
-          <a href={`${Astro.site?.pathname || '/argon/'}tags`}>Tags</a>
-          <a href={`${Astro.site?.pathname || '/argon/'}about`}>About</a>
+          <a href={import.meta.env.BASE_URL}>Home</a>
+          <a href={`${import.meta.env.BASE_URL}tags`}>Tags</a>
+          <a href={`${import.meta.env.BASE_URL}about`}>About</a>
           <button
             id="theme-toggle"
             aria-label="Toggle dark mode"

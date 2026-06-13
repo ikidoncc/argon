@@ -23,7 +23,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 >
   <article class="article-container container">
     <header class="article-header">
-      <a href={`${Astro.site?.pathname || '/argon/'}`} class="back-link">
+      <a href={import.meta.env.BASE_URL} class="back-link">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -47,7 +47,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
           {
             tags.map((tag) => (
               <a
-                href={`${Astro.site?.pathname || '/argon/'}tags/${tag}`}
+                href={`${import.meta.env.BASE_URL}tags/${tag}`}
                 class="tag-pill"
               >
                 #{tag}
