@@ -1,12 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&display=swap');
+@import 'tailwindcss';
 
-:root {
+@theme {
   /* Fonts */
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Outfit', sans-serif;
   --font-mono: 'Fira Code', monospace;
 
-  /* Common/Shared tokens */
+  /* Custom HSL Themes mapped to Tailwind color tokens */
+  --color-brand-primary: var(--color-primary);
+  --color-brand-secondary: var(--color-secondary);
+}
+
+:root {
+  /* Common tokens */
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   --radius-sm: 8px;
@@ -59,14 +66,6 @@
 }
 
 /* Global Reset */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 html {
   font-family: var(--font-sans);
   background-color: var(--color-bg);
@@ -100,10 +99,6 @@ h6 {
   color: var(--color-text);
 }
 
-p {
-  margin-bottom: 1.25rem;
-}
-
 a {
   color: var(--color-primary);
   text-decoration: none;
@@ -114,11 +109,7 @@ a:hover {
   color: var(--color-primary-hover);
 }
 
-/* Page transitions / layouts */
-main {
-  flex: 1;
-}
-
+/* Layout Utilities */
 .container {
   width: 100%;
   max-width: 800px;
@@ -143,7 +134,7 @@ main {
   transform: translateY(-2px);
 }
 
-/* Micro-animations & interactive defaults */
+/* Buttons */
 button,
 .btn {
   font-family: var(--font-display);
