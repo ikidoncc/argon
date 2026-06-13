@@ -1,6 +1,8 @@
 # Argon
 
-A technical blog focused on software engineering, distributed systems, databases, operating systems, infrastructure, networking and computer science.
+Exploring technology, science, and lifelong learning.
+
+Argon is a personal blog and knowledge repository where I share articles, notes, experiments, and insights about software engineering, computer science, mathematics, physics, and anything else worth understanding.
 
 Argon is a fully static website built with Astro and hosted on GitHub Pages.
 
