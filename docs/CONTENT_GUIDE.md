@@ -14,11 +14,11 @@ Each article is an independent unit.
 
 An article must contain:
 
-* Content
-* Images
-* Diagrams
-* Videos
-* Supporting files
+- Content
+- Images
+- Diagrams
+- Videos
+- Supporting files
 
 All related resources must remain within the article's own folder.
 
@@ -76,11 +76,11 @@ Even if the slug or title is changed.
 
 Article IDs are subject to the following rules:
 
-* Article IDs are permanent.
-* Article IDs are unique.
-* Article IDs must never be reused.
-* Deleting an article does not release its ID.
-* IDs are part of the project's editorial history.
+- Article IDs are permanent.
+- Article IDs are unique.
+- Article IDs must never be reused.
+- Deleting an article does not release its ID.
+- IDs are part of the project's editorial history.
 
 ---
 
@@ -130,7 +130,7 @@ Minimum structure:
 
 ```yaml
 ---
-id: "0001"
+id: '0001'
 title: Linux Kernel Internals
 slug: linux-kernel
 date: 2026-06-13
@@ -153,7 +153,7 @@ Permanent identifier.
 Example:
 
 ```yaml
-id: "0001"
+id: '0001'
 ```
 
 ---
@@ -249,9 +249,9 @@ draft: false
 
 Use:
 
-* lowercase letters
-* English words
-* kebab-case
+- lowercase letters
+- English words
+- kebab-case
 
 Correct:
 
@@ -447,9 +447,9 @@ content(0005): add benchmark results
 
 When an article is removed:
 
-* the ID must not be reused;
-* the Git history must remain intact;
-* the slug can only be reused through an explicit decision.
+- the ID must not be reused;
+- the Git history must remain intact;
+- the slug can only be reused through an explicit decision.
 
 ---
 
@@ -477,11 +477,11 @@ Complete example:
 
 The project follows strict language requirements:
 
-* Metadata must be written in English.
-* Tags must be written in English.
-* Slugs must be written in English.
-* File names must be written in English.
-* Project documentation must be written in English.
+- Metadata must be written in English.
+- Tags must be written in English.
+- Slugs must be written in English.
+- File names must be written in English.
+- Project documentation must be written in English.
 
 ---
 
@@ -489,14 +489,14 @@ The project follows strict language requirements:
 
 Before publishing, verify:
 
-* title is defined;
-* slug is defined;
-* tags are defined;
-* cover image is defined;
-* links are working;
-* images are loading correctly;
-* spelling is reviewed;
-* frontmatter is valid.
+- title is defined;
+- slug is defined;
+- tags are defined;
+- cover image is defined;
+- links are working;
+- images are loading correctly;
+- spelling is reviewed;
+- frontmatter is valid.
 
 ---
 
@@ -504,10 +504,10 @@ Before publishing, verify:
 
 The content of Argon must remain:
 
-* organized;
-* traceable;
-* versionable;
-* portable;
-* independent of external platforms.
+- organized;
+- traceable;
+- versionable;
+- portable;
+- independent of external platforms.
 
 Each article must be able to exist as a complete unit within the repository.

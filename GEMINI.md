@@ -16,27 +16,27 @@ If any conflict exists between this file and other documentation, the documentat
 
 Argon is a personal technical blog focused on:
 
-* Software Engineering
-* System Architecture
-* Distributed Systems
-* Infrastructure
-* Databases
-* Networking
-* Computer Science
+- Software Engineering
+- System Architecture
+- Distributed Systems
+- Infrastructure
+- Databases
+- Networking
+- Computer Science
 
 The project is:
 
-* Fully static
-* Built with Astro
-* Hosted on GitHub Pages
-* Versioned with Git
-* Markdown-based
+- Fully static
+- Built with Astro
+- Hosted on GitHub Pages
+- Versioned with Git
+- Markdown-based
 
 There is:
 
-* No backend
-* No database
-* No self-hosted infrastructure
+- No backend
+- No database
+- No self-hosted infrastructure
 
 ---
 
@@ -52,10 +52,10 @@ docs/ARCHITECTURE.md
 
 Defines:
 
-* Project goals
-* Technical architecture
-* Technology stack
-* Deployment workflow
+- Project goals
+- Technical architecture
+- Technology stack
+- Deployment workflow
 
 2.
 
@@ -65,10 +65,10 @@ docs/CONTENT_GUIDE.md
 
 Defines:
 
-* Content structure
-* Article organization
-* Metadata rules
-* Asset management
+- Content structure
+- Article organization
+- Metadata rules
+- Asset management
 
 3.
 
@@ -78,10 +78,10 @@ docs/COMMIT_CONVENTION.md
 
 Defines:
 
-* Commit rules
-* Commit types
-* Editorial history conventions
-* AI documentation rules
+- Commit rules
+- Commit types
+- Editorial history conventions
+- AI documentation rules
 
 ---
 
@@ -117,15 +117,15 @@ Before implementing a feature:
 
 When working with articles:
 
-* Follow CONTENT_GUIDE.md
-* Use article IDs
-* Use folder format:
+- Follow CONTENT_GUIDE.md
+- Use article IDs
+- Use folder format:
 
 ```text
 <id>-<slug>
 ```
 
-* Use:
+- Use:
 
 ```text
 index.md
@@ -133,7 +133,7 @@ index.md
 
 as the article entry point.
 
-* Never reuse article IDs.
+- Never reuse article IDs.
 
 ---
 
@@ -189,18 +189,18 @@ commit types.
 
 Prioritize:
 
-* Simplicity
-* Maintainability
-* Readability
-* Performance
-* Low complexity
+- Simplicity
+- Maintainability
+- Readability
+- Performance
+- Low complexity
 
 Avoid:
 
-* Premature optimization
-* Overengineering
-* Unnecessary abstractions
-* Unnecessary dependencies
+- Premature optimization
+- Overengineering
+- Unnecessary abstractions
+- Unnecessary dependencies
 
 ---
 
@@ -208,15 +208,15 @@ Avoid:
 
 Prefer:
 
-* Astro components
-* Static generation
-* Content collections
-* Minimal client-side JavaScript
+- Astro components
+- Static generation
+- Content collections
+- Minimal client-side JavaScript
 
 Avoid:
 
-* Unnecessary hydration
-* Client-side rendering when static rendering is sufficient
+- Unnecessary hydration
+- Client-side rendering when static rendering is sufficient
 
 ---
 
@@ -224,10 +224,10 @@ Avoid:
 
 Target:
 
-* Lighthouse score above 95
-* Minimal JavaScript
-* Fast static pages
-* Small bundle size
+- Lighthouse score above 95
+- Minimal JavaScript
+- Fast static pages
+- Small bundle size
 
 ---
 
@@ -262,9 +262,9 @@ The project documentation is the contract.
 
 Gemini must always consult:
 
-* docs/ARCHITECTURE.md
-* docs/CONTENT_GUIDE.md
-* docs/COMMIT_CONVENTION.md
+- docs/ARCHITECTURE.md
+- docs/CONTENT_GUIDE.md
+- docs/COMMIT_CONVENTION.md
 
 before making architectural, editorial, or workflow decisions.
 

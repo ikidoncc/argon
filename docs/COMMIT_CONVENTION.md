@@ -14,18 +14,18 @@ The Git history should function as living documentation of the project.
 
 Every commit must:
 
-* Represent a single intent
-* Be small and focused
-* Have a clear message
-* Be written in English
-* Follow the patterns defined in this document
+- Represent a single intent
+- Be small and focused
+- Have a clear message
+- Be written in English
+- Follow the patterns defined in this document
 
 The following are not allowed:
 
-* Generic commits
-* Commits with multiple unrelated changes
-* Vague messages
-* Temporary commits
+- Generic commits
+- Commits with multiple unrelated changes
+- Vague messages
+- Temporary commits
 
 Invalid examples:
 
@@ -196,11 +196,11 @@ the ID remains:
 
 Article IDs are subject to the following rules:
 
-* **Permanent**: Once assigned to an article, the ID is permanently bound to it.
-* **Unique**: Each ID must uniquely identify a single article.
-* **No Reuse**: Article IDs must never be reused.
-* **Retention**: Deleting or removing an article does not free up its ID for future use.
-* **History**: Preserved IDs remain as part of the project's editorial history.
+- **Permanent**: Once assigned to an article, the ID is permanently bound to it.
+- **Unique**: Each ID must uniquely identify a single article.
+- **No Reuse**: Article IDs must never be reused.
+- **Retention**: Deleting or removing an article does not free up its ID for future use.
+- **History**: Preserved IDs remain as part of the project's editorial history.
 
 ---
 
@@ -314,13 +314,13 @@ content(0002): publish postgres internals article
 
 When committing changes:
 
-* **Avoid modifying multiple articles** in a single commit.
-* **Prefer one commit per article** to isolate edits.
-* **Do not use generic messages** such as:
+- **Avoid modifying multiple articles** in a single commit.
+- **Prefer one commit per article** to isolate edits.
+- **Do not use generic messages** such as:
   ```text
   content: update articles
   ```
-* **Maintain a clean editorial history** by separating concerns.
+- **Maintain a clean editorial history** by separating concerns.
 
 ---
 
@@ -463,11 +463,11 @@ content(0001): update article and add images and fix typos
 
 Every Pull Request must:
 
-* Build successfully
-* Pass validations
-* Have a clear description
-* Not contain temporary commits
-* Respect this convention
+- Build successfully
+- Pass validations
+- Have a clear description
+- Not contain temporary commits
+- Respect this convention
 
 ---
 
@@ -527,9 +527,9 @@ The Git history is part of the project documentation.
 
 A person should be able to understand:
 
-* the evolution of the system;
-* the evolution of the documentation;
-* the evolution of each article;
+- the evolution of the system;
+- the evolution of the documentation;
+- the evolution of each article;
 
 just by reading the commit history.
 

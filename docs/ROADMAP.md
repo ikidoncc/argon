@@ -16,15 +16,15 @@ Prepare the repository structure and project governance.
 
 ### Tasks
 
-* [ ] Create Git repository
-* [ ] Add LICENSE
-* [ ] Add README.md
-* [ ] Add GEMINI.md
-* [ ] Add ARCHITECTURE.md
-* [ ] Add CONTENT_GUIDE.md
-* [ ] Add COMMIT_CONVENTION.md
-* [ ] Create docs directory structure
-* [ ] Configure .gitignore
+- [ ] Create Git repository
+- [ ] Add LICENSE
+- [ ] Add README.md
+- [ ] Add GEMINI.md
+- [ ] Add ARCHITECTURE.md
+- [ ] Add CONTENT_GUIDE.md
+- [ ] Add COMMIT_CONVENTION.md
+- [ ] Create docs directory structure
+- [ ] Configure .gitignore
 
 ### Deliverable
 
@@ -40,12 +40,12 @@ Create the base Astro application.
 
 ### Tasks
 
-* [ ] Initialize Astro project
-* [ ] Enable TypeScript strict mode
-* [ ] Configure project aliases
-* [ ] Configure formatting rules
-* [ ] Configure linting
-* [ ] Configure build scripts
+- [ ] Initialize Astro project
+- [ ] Enable TypeScript strict mode
+- [ ] Configure project aliases
+- [ ] Configure formatting rules
+- [ ] Configure linting
+- [ ] Configure build scripts
 
 ### Deliverable
 
@@ -61,11 +61,11 @@ Enable automatic deployment.
 
 ### Tasks
 
-* [ ] Configure GitHub Pages
-* [ ] Create deployment workflow
-* [ ] Configure Astro output
-* [ ] Configure base URL
-* [ ] Test production deployment
+- [ ] Configure GitHub Pages
+- [ ] Create deployment workflow
+- [ ] Configure Astro output
+- [ ] Configure base URL
+- [ ] Test production deployment
 
 ### Deliverable
 
@@ -81,12 +81,12 @@ Create the article management system.
 
 ### Tasks
 
-* [ ] Configure Astro Content Collections
-* [ ] Create article schema
-* [ ] Validate frontmatter
-* [ ] Configure article loading
-* [ ] Configure article sorting by date
-* [ ] Configure draft support
+- [ ] Configure Astro Content Collections
+- [ ] Create article schema
+- [ ] Validate frontmatter
+- [ ] Configure article loading
+- [ ] Configure article sorting by date
+- [ ] Configure draft support
 
 ### Deliverable
 
@@ -102,11 +102,11 @@ Create the visual foundation of the site.
 
 ### Tasks
 
-* [ ] Create global layout
-* [ ] Create article layout
-* [ ] Create page layout
-* [ ] Configure typography
-* [ ] Configure responsive design
+- [ ] Create global layout
+- [ ] Create article layout
+- [ ] Create page layout
+- [ ] Configure typography
+- [ ] Configure responsive design
 
 ### Deliverable
 
@@ -122,11 +122,11 @@ Provide the main content entry point.
 
 ### Tasks
 
-* [ ] List latest articles
-* [ ] Display article metadata
-* [ ] Display article tags
-* [ ] Display publication date
-* [ ] Display article cover image
+- [ ] List latest articles
+- [ ] Display article metadata
+- [ ] Display article tags
+- [ ] Display publication date
+- [ ] Display article cover image
 
 ### Deliverable
 
@@ -142,12 +142,12 @@ Render article content.
 
 ### Tasks
 
-* [ ] Render Markdown
-* [ ] Render images
-* [ ] Render code blocks
-* [ ] Render tables
-* [ ] Render videos
-* [ ] Render internal links
+- [ ] Render Markdown
+- [ ] Render images
+- [ ] Render code blocks
+- [ ] Render tables
+- [ ] Render videos
+- [ ] Render internal links
 
 ### Deliverable
 
@@ -163,10 +163,10 @@ Organize content by topic.
 
 ### Tasks
 
-* [ ] Generate tag pages
-* [ ] Create tag listing page
-* [ ] Display article counts per tag
-* [ ] Link articles to tags
+- [ ] Generate tag pages
+- [ ] Create tag listing page
+- [ ] Display article counts per tag
+- [ ] Link articles to tags
 
 ### Deliverable
 
@@ -182,10 +182,10 @@ Provide author and project information.
 
 ### Tasks
 
-* [ ] Create About page
-* [ ] Add project description
-* [ ] Add author information
-* [ ] Add social links
+- [ ] Create About page
+- [ ] Add project description
+- [ ] Add author information
+- [ ] Add social links
 
 ### Deliverable
 
@@ -201,11 +201,11 @@ Improve site usability.
 
 ### Tasks
 
-* [ ] Header navigation
-* [ ] Footer navigation
-* [ ] Home link
-* [ ] About link
-* [ ] Tags link
+- [ ] Header navigation
+- [ ] Footer navigation
+- [ ] Home link
+- [ ] About link
+- [ ] Tags link
 
 ### Deliverable
 
@@ -221,10 +221,10 @@ Enable local content search.
 
 ### Tasks
 
-* [ ] Integrate Pagefind
-* [ ] Index articles
-* [ ] Create search UI
-* [ ] Test search functionality
+- [ ] Integrate Pagefind
+- [ ] Index articles
+- [ ] Create search UI
+- [ ] Test search functionality
 
 ### Deliverable
 
@@ -240,10 +240,10 @@ Provide theme support.
 
 ### Tasks
 
-* [ ] Create dark theme
-* [ ] Create light theme
-* [ ] Theme switcher
-* [ ] Persist theme preference
+- [ ] Create dark theme
+- [ ] Create light theme
+- [ ] Theme switcher
+- [ ] Persist theme preference
 
 ### Deliverable
 
@@ -259,11 +259,11 @@ Improve search engine visibility.
 
 ### Tasks
 
-* [ ] Meta title generation
-* [ ] Meta description generation
-* [ ] Canonical URLs
-* [ ] Open Graph metadata
-* [ ] Twitter Card metadata
+- [ ] Meta title generation
+- [ ] Meta description generation
+- [ ] Canonical URLs
+- [ ] Open Graph metadata
+- [ ] Twitter Card metadata
 
 ### Deliverable
 
@@ -279,8 +279,8 @@ Support search engine indexing.
 
 ### Tasks
 
-* [ ] Generate sitemap.xml
-* [ ] Validate sitemap
+- [ ] Generate sitemap.xml
+- [ ] Validate sitemap
 
 ### Deliverable
 
@@ -296,9 +296,9 @@ Support content syndication.
 
 ### Tasks
 
-* [ ] Generate RSS feed
-* [ ] Validate feed structure
-* [ ] Expose feed URL
+- [ ] Generate RSS feed
+- [ ] Validate feed structure
+- [ ] Expose feed URL
 
 ### Deliverable
 
@@ -314,8 +314,8 @@ Provide crawler instructions.
 
 ### Tasks
 
-* [ ] Generate robots.txt
-* [ ] Reference sitemap
+- [ ] Generate robots.txt
+- [ ] Reference sitemap
 
 ### Deliverable
 
@@ -331,8 +331,8 @@ Improve user experience.
 
 ### Tasks
 
-* [ ] Create 404 page
-* [ ] Configure fallback behavior
+- [ ] Create 404 page
+- [ ] Configure fallback behavior
 
 ### Deliverable
 
@@ -348,10 +348,10 @@ Support article resources.
 
 ### Tasks
 
-* [ ] Image support
-* [ ] PDF support
-* [ ] Video support
-* [ ] Downloadable assets
+- [ ] Image support
+- [ ] PDF support
+- [ ] Video support
+- [ ] Downloadable assets
 
 ### Deliverable
 
@@ -367,10 +367,10 @@ Meet performance targets.
 
 ### Tasks
 
-* [ ] Optimize images
-* [ ] Reduce JavaScript
-* [ ] Validate bundle size
-* [ ] Test page speed
+- [ ] Optimize images
+- [ ] Reduce JavaScript
+- [ ] Validate bundle size
+- [ ] Test page speed
 
 ### Deliverable
 
@@ -386,26 +386,26 @@ Prepare for public release.
 
 ### Tasks
 
-* [ ] Publish welcome article
-* [ ] Validate all links
-* [ ] Validate SEO
-* [ ] Validate RSS
-* [ ] Validate sitemap
-* [ ] Validate search
-* [ ] Validate GitHub Pages deployment
-* [ ] Run Lighthouse audit
+- [ ] Publish welcome article
+- [ ] Validate all links
+- [ ] Validate SEO
+- [ ] Validate RSS
+- [ ] Validate sitemap
+- [ ] Validate search
+- [ ] Validate GitHub Pages deployment
+- [ ] Run Lighthouse audit
 
 ### Success Criteria
 
-* [ ] Lighthouse score ≥ 95
-* [ ] Build succeeds
-* [ ] Deployment succeeds
-* [ ] Search works
-* [ ] RSS works
-* [ ] Sitemap works
-* [ ] Dark mode works
-* [ ] Tags work
-* [ ] Articles render correctly
+- [ ] Lighthouse score ≥ 95
+- [ ] Build succeeds
+- [ ] Deployment succeeds
+- [ ] Search works
+- [ ] RSS works
+- [ ] Sitemap works
+- [ ] Dark mode works
+- [ ] Tags work
+- [ ] Articles render correctly
 
 ---
 
@@ -413,16 +413,16 @@ Prepare for public release.
 
 The following features are not part of the MVP:
 
-* Comments
-* User accounts
-* Authentication
-* CMS
-* Analytics dashboards
-* Newsletter platform
-* Database
-* Backend APIs
-* Self-hosted services
-* Monetization systems
+- Comments
+- User accounts
+- Authentication
+- CMS
+- Analytics dashboards
+- Newsletter platform
+- Database
+- Backend APIs
+- Self-hosted services
+- Monetization systems
 
 These features may be evaluated after the MVP is completed.
 
@@ -432,11 +432,11 @@ These features may be evaluated after the MVP is completed.
 
 Argon MVP is complete when:
 
-* Articles can be published through Markdown.
-* Content is automatically deployed to GitHub Pages.
-* Search works locally.
-* SEO assets are generated automatically.
-* RSS feed is available.
-* Dark mode is available.
-* Performance targets are achieved.
-* All project documentation is respected.
+- Articles can be published through Markdown.
+- Content is automatically deployed to GitHub Pages.
+- Search works locally.
+- SEO assets are generated automatically.
+- RSS feed is available.
+- Dark mode is available.
+- Performance targets are achieved.
+- All project documentation is respected.

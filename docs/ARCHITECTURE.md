@@ -16,26 +16,26 @@ All content will be versioned in Git.
 
 ## Functional
 
-* Publishing articles in Markdown
-* Homepage listing articles
-* Individual page for each article
-* Tag system
-* Basic SEO
-* RSS Feed
-* Sitemap
-* Dark theme
-* Local search
-* About page
+- Publishing articles in Markdown
+- Homepage listing articles
+- Individual page for each article
+- Tag system
+- Basic SEO
+- RSS Feed
+- Sitemap
+- Dark theme
+- Local search
+- About page
 
 ## Non-Functional
 
-* Free hosting
-* No dedicated server
-* No database
-* Automated deployment
-* Open source
-* Easy maintenance
-* High performance
+- Free hosting
+- No dedicated server
+- No database
+- Automated deployment
+- Open source
+- Easy maintenance
+- High performance
 
 ---
 
@@ -65,11 +65,11 @@ Responsible for website generation.
 
 Reasons:
 
-* Excellent SEO
-* Excellent performance
-* Low JavaScript usage
-* Native Markdown support
-* Easy integration with GitHub Pages
+- Excellent SEO
+- Excellent performance
+- Low JavaScript usage
+- Native Markdown support
+- Easy integration with GitHub Pages
 
 ---
 
@@ -99,10 +99,10 @@ Article content.
 
 Responsible for:
 
-* Version control
-* Article history
-* Content review
-* Distributed backup
+- Version control
+- Article history
+- Content review
+- Distributed backup
 
 ---
 
@@ -110,9 +110,9 @@ Responsible for:
 
 Responsible for:
 
-* Code storage
-* Article storage
-* Publishing pipeline
+- Code storage
+- Article storage
+- Publishing pipeline
 
 ---
 
@@ -122,9 +122,9 @@ Responsible for hosting.
 
 Characteristics:
 
-* Free
-* Automatic HTTPS
-* Global CDN
+- Free
+- Automatic HTTPS
+- Global CDN
 
 ---
 
@@ -232,11 +232,11 @@ Each article becomes an independent unit.
 
 Advantages:
 
-* Easy to move articles
-* Easy to export articles
-* Easy to version assets
-* No global images folder
-* Organization similar to that used by modern documentation projects
+- Easy to move articles
+- Easy to export articles
+- Easy to version assets
+- No global images folder
+- Organization similar to that used by modern documentation projects
 
 ---
 
@@ -282,11 +282,11 @@ GitHub Actions will execute:
 
 The project must automatically generate:
 
-* sitemap.xml
-* robots.txt
-* Open Graph
-* Twitter Cards
-* RSS Feed
+- sitemap.xml
+- robots.txt
+- Open Graph
+- Twitter Cards
+- RSS Feed
 
 Objective:
 
@@ -298,10 +298,10 @@ Better indexing by search engines.
 
 Goals:
 
-* Lighthouse score above 95
-* Static HTML
-* Minimal JavaScript
-* Load time under 1 second
+- Lighthouse score above 95
+- Static HTML
+- Minimal JavaScript
+- Load time under 1 second
 
 ---
 

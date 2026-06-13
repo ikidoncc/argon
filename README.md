@@ -6,11 +6,11 @@ Argon is a fully static website built with Astro and hosted on GitHub Pages.
 
 The project prioritizes:
 
-* Simplicity
-* Performance
-* Long-term maintainability
-* Content ownership
-* Versioned publishing workflow
+- Simplicity
+- Performance
+- Long-term maintainability
+- Content ownership
+- Versioned publishing workflow
 
 ---
 
@@ -28,25 +28,25 @@ The repository itself is the source of truth.
 
 ## Features
 
-* Static site generation
-* Markdown-based content
-* Article-scoped assets
-* RSS feed
-* Sitemap
-* SEO metadata
-* Dark mode
-* Git-based publishing workflow
-* GitHub Pages deployment
+- Static site generation
+- Markdown-based content
+- Article-scoped assets
+- RSS feed
+- Sitemap
+- SEO metadata
+- Dark mode
+- Git-based publishing workflow
+- GitHub Pages deployment
 
 ---
 
 ## Technology Stack
 
-* Astro
-* Markdown
-* Git
-* GitHub Actions
-* GitHub Pages
+- Astro
+- Markdown
+- Git
+- GitHub Actions
+- GitHub Pages
 
 ---
 
@@ -184,12 +184,12 @@ GitHub Actions will automatically:
 
 ## Principles
 
-* Content first
-* Static by default
-* No unnecessary complexity
-* Git as source of truth
-* Long-term maintainability
-* Full ownership of content
+- Content first
+- Static by default
+- No unnecessary complexity
+- Git as source of truth
+- Long-term maintainability
+- Full ownership of content
 
 ---
 
