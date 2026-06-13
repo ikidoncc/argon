@@ -1,0 +1,243 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+  title="Search Articles"
+  description="Search across all technical articles, notes, and experiments."
+>
+  <div class="search-container">
+    <div class="search-box glass-card">
+      <svg
+        class="search-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.3-4.3"></path>
+      </svg>
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Type keywords to search..."
+        autocomplete="off"
+      />
+      <div id="search-spinner" class="spinner hidden"></div>
+    </div>
+
+    <div id="search-results" class="results-list">
+      <!-- Search results will be injected here -->
+    </div>
+  </div>
+</PageLayout>
+
+<script>
+  // Dynamic client-side integration of Pagefind
+  let pagefind: any = null;
+
+  const searchInput = document.getElementById(
+    'search-input'
+  ) as HTMLInputElement;
+  const searchResults = document.getElementById(
+    'search-results'
+  ) as HTMLDivElement;
+  const spinner = document.getElementById('search-spinner') as HTMLDivElement;
+
+  async function initPagefind() {
+    if (!pagefind) {
+      try {
+        const path = '/argon/pagefind/pagefind.js';
+        pagefind = await import(path);
+        await pagefind.init();
+      } catch (e) {
+        console.error(
+          'Failed to load pagefind index. Search might not be indexed yet.',
+          e
+        );
+      }
+    }
+  }
+
+  async function performSearch(query: string) {
+    if (!pagefind) return;
+
+    if (!query.trim()) {
+      searchResults.innerHTML = '';
+      return;
+    }
+
+    spinner.classList.remove('hidden');
+
+    try {
+      const search = await pagefind.search(query);
+
+      if (search.results.length === 0) {
+        searchResults.innerHTML = `<div class="no-results glass-card"><p>No results found for "${query}"</p></div>`;
+        spinner.classList.add('hidden');
+        return;
+      }
+
+      // Fetch the first 10 results metadata
+      const resultsToRender = search.results.slice(0, 10);
+      const data = await Promise.all(resultsToRender.map((r: any) => r.data()));
+
+      searchResults.innerHTML = data
+        .map(
+          (item: any) => `
+          <article class="glass-card result-card">
+            <h3 class="result-title">
+              <a href="${item.url}">${item.meta.title || 'Untitled'}</a>
+            </h3>
+            <p class="result-excerpt">${item.excerpt || ''}</p>
+            <a href="${item.url}" class="result-link">Read Article &rarr;</a>
+          </article>
+        `
+        )
+        .join('');
+    } catch (e) {
+      console.error('Search error', e);
+    } finally {
+      spinner.classList.add('hidden');
+    }
+  }
+
+  if (searchInput) {
+    // Initialize pagefind when user focuses input
+    searchInput.addEventListener('focus', initPagefind);
+
+    // Simple debounce search trigger
+    let debounceTimeout: NodeJS.Timeout;
+    searchInput.addEventListener('input', (e) => {
+      const query = (e.target as HTMLInputElement).value;
+      clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(() => {
+        performSearch(query);
+      }, 300);
+    });
+  }
+</script>
+
+<style>
+  .search-container {
+    padding-top: 1rem;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 2.5rem;
+    border-radius: var(--radius-md);
+  }
+
+  .search-icon {
+    color: var(--color-text-muted);
+    margin-right: 0.75rem;
+  }
+
+  input[type='text'] {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--color-text);
+    font-size: 1.1rem;
+    font-family: var(--font-sans);
+    outline: none;
+  }
+
+  input[type='text']::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  /* Spinner */
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: var(--radius-full);
+    animation: spin 0.8s linear infinite;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Results styling */
+  .results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .no-results {
+    padding: 2.5rem;
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+
+  :global(.result-card) {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  :global(.result-title) {
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+  }
+
+  :global(.result-title a) {
+    color: var(--color-text);
+  }
+
+  :global(.result-title a:hover) {
+    color: var(--color-primary);
+  }
+
+  :global(.result-excerpt) {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  /* Highlight styling inside excerpt */
+  :global(.result-excerpt mark) {
+    background-color: var(--color-accent-glow);
+    color: var(--color-secondary);
+    font-weight: 600;
+    padding: 0.1rem 0.25rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(0, 240, 255, 0.15);
+  }
+
+  :global(.result-link) {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    align-self: start;
+    transition: var(--transition-fast);
+  }
+
+  :global(.result-link:hover) {
+    color: var(--color-primary-hover);
+    transform: translateX(2px);
+  }
+</style>
