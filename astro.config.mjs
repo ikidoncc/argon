@@ -11,4 +11,12 @@ export default defineConfig({
   },
   site: 'https://ikidoncc.github.io',
   base: '/argon/',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'pt'],
+    routing: {
+      prefixDefaultLocale: false,
+      redirectToDefaultLocale: false,
+    },
+  },
 });
