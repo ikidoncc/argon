@@ -1,8 +1,15 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import { getPosts } from '../../utils/posts';
+import {
+  getLangFromUrl,
+  useTranslations,
+  getLocalizedLink,
+} from '../../utils/i18n';
 
-const posts = await getPosts();
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const posts = await getPosts(lang);
 
 // Count tag frequencies
 const tagCounts: Record<string, number> = {};
@@ -15,21 +22,18 @@ posts.forEach((post) => {
 const tags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]);
 ---
 
-<PageLayout
-  title="Tags"
-  description="Browse technical articles by topic and category."
->
+<PageLayout title={t('tags.title')} description={t('tags.desc')}>
   <div class="tags-container">
     {
       tags.length === 0 ? (
         <div class="glass-card no-tags">
-          <p>No tags found.</p>
+          <p>{lang === 'en' ? 'No tags found.' : 'Nenhuma tag encontrada.'}</p>
         </div>
       ) : (
         <div class="tags-grid">
           {tags.map((tag) => (
             <a
-              href={`${import.meta.env.BASE_URL}tags/${tag}`}
+              href={getLocalizedLink(`tags/${tag}`, lang)}
               class="tag-card glass-card"
             >
               <span class="tag-hash">#</span>
