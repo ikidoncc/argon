@@ -1,0 +1,293 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  cover?: string;
+}
+
+const {
+  title,
+  description = 'Argon - A personal technical blog focused on software engineering, system architecture, and infrastructure.',
+  cover,
+} = Astro.props;
+
+// Determine current URL for canonical links
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site || 'https://ikidon.github.io/argon'
+);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={`${Astro.site?.pathname || '/argon'}favicon.svg`}
+    />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {cover && <meta property="og:image" content={new URL(cover, Astro.url)} />}
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    {
+      cover && (
+        <meta property="twitter:image" content={new URL(cover, Astro.url)} />
+      )
+    }
+
+    <!-- Inline script to prevent theme flash -->
+    <script is:inline>
+      const getTheme = () => {
+        if (
+          typeof localStorage !== 'undefined' &&
+          localStorage.getItem('theme')
+        ) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      };
+
+      const theme = getTheme();
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+    </script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-container">
+        <a href={`${Astro.site?.pathname || '/argon/'}`} class="logo">
+          <span class="logo-accent">&gt;_</span> Argon
+        </a>
+        <nav class="nav">
+          <a href={`${Astro.site?.pathname || '/argon/'}`}>Home</a>
+          <a href={`${Astro.site?.pathname || '/argon/'}tags`}>Tags</a>
+          <a href={`${Astro.site?.pathname || '/argon/'}about`}>About</a>
+          <button
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+            class="theme-btn"
+          >
+            <!-- Sun Icon (Light Mode) -->
+            <svg
+              class="sun-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <!-- Moon Icon (Dark Mode) -->
+            <svg
+              class="moon-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <p class="footer-copy">
+          &copy; {new Date().getFullYear()} Argon. All rights reserved.
+        </p>
+        <p class="footer-desc">
+          A blog about Systems Engineering & Distributed Infrastructure.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Client-side theme toggle logic
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          const currentTheme =
+            document.documentElement.getAttribute('data-theme');
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+          if (newTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+          } else {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
+
+<style>
+  /* Header styling */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1rem 0;
+  }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    letter-spacing: -0.03em;
+  }
+
+  .logo-accent {
+    color: var(--color-primary);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav a {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    transition: var(--transition-fast);
+  }
+
+  .nav a:hover {
+    color: var(--color-text);
+  }
+
+  /* Theme Button & Switcher */
+  .theme-btn {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .theme-btn:hover {
+    background: var(--color-bg-surface-hover);
+    color: var(--color-text);
+  }
+
+  /* Show/hide icons depending on theme */
+  .sun-icon {
+    display: block;
+  }
+  .moon-icon {
+    display: none;
+  }
+
+  :root[data-theme='dark'] .sun-icon {
+    display: none;
+  }
+  :root[data-theme='dark'] .moon-icon {
+    display: block;
+  }
+
+  /* Footer styling */
+  .footer {
+    border-top: 1px solid var(--color-border);
+    padding: 2.5rem 0;
+    background: var(--color-bg-surface);
+    margin-top: auto;
+  }
+
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .footer-copy {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  .footer-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 600px) {
+    .header-container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+</style>

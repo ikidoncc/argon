@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&display=swap');
+
+:root {
+  /* Fonts */
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+
+  /* Common/Shared tokens */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.2);
+
+  /* Light Theme tokens */
+  --color-bg: hsl(210, 40%, 98%);
+  --color-bg-surface: hsl(0, 0%, 100%);
+  --color-bg-surface-hover: hsl(210, 30%, 96%);
+  --color-border: hsl(210, 20%, 90%);
+  --color-border-hover: hsl(210, 20%, 80%);
+  --color-text: hsl(222, 47%, 15%);
+  --color-text-muted: hsl(215, 16%, 47%);
+  --color-primary: hsl(250, 89%, 60%);
+  --color-primary-hover: hsl(250, 89%, 52%);
+  --color-secondary: hsl(180, 100%, 35%);
+  --color-secondary-hover: hsl(180, 100%, 30%);
+  --color-accent-glow: rgba(99, 102, 241, 0.06);
+
+  /* Glassmorphism Light */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+}
+
+/* Dark Theme overrides */
+:root[data-theme='dark'] {
+  --color-bg: hsl(222, 47%, 6%);
+  --color-bg-surface: hsl(223, 47%, 11%);
+  --color-bg-surface-hover: hsl(223, 40%, 16%);
+  --color-border: hsl(223, 30%, 18%);
+  --color-border-hover: hsl(223, 30%, 26%);
+  --color-text: hsl(210, 40%, 98%);
+  --color-text-muted: hsl(215, 20%, 65%);
+  --color-primary: hsl(250, 95%, 72%);
+  --color-primary-hover: hsl(250, 95%, 80%);
+  --color-secondary: hsl(180, 100%, 45%);
+  --color-secondary-hover: hsl(180, 100%, 60%);
+  --color-accent-glow: rgba(129, 140, 248, 0.08);
+
+  /* Glassmorphism Dark */
+  --glass-bg: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Global Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+
+/* Typography Defaults */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+p {
+  margin-bottom: 1.25rem;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* Page transitions / layouts */
+main {
+  flex: 1;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Glassmorphism Card Utility */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-md);
+  transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Micro-animations & interactive defaults */
+button,
+.btn {
+  font-family: var(--font-display);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-primary {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 100%
+  );
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+  opacity: 0.95;
+}
+
+.btn-secondary {
+  background: var(--color-bg-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background: var(--color-bg-surface-hover);
+  border-color: var(--color-border-hover);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
+}
