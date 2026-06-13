@@ -1,5 +1,11 @@
 ---
 import '../styles/global.css';
+import {
+  getLangFromUrl,
+  useTranslations,
+  getLocalizedLink,
+  getLocalizedPath,
+} from '../utils/i18n';
 
 interface Props {
   title: string;
@@ -18,10 +24,15 @@ const canonicalURL = new URL(
   Astro.url.pathname,
   Astro.site || 'https://ikidoncc.github.io/argon'
 );
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const oppositeLang = lang === 'en' ? 'pt' : 'en';
+const switchLangUrl = getLocalizedPath(Astro.url, oppositeLang);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -84,14 +95,23 @@ const canonicalURL = new URL(
   <body>
     <header class="header">
       <div class="container header-container">
-        <a href={import.meta.env.BASE_URL} class="logo">
+        <a href={getLocalizedLink('/', lang)} class="logo">
           <span class="logo-accent">&gt;_</span> Argon
         </a>
         <nav class="nav">
-          <a href={import.meta.env.BASE_URL}>Home</a>
-          <a href={`${import.meta.env.BASE_URL}tags`}>Tags</a>
-          <a href={`${import.meta.env.BASE_URL}search`}>Search</a>
-          <a href={`${import.meta.env.BASE_URL}about`}>About</a>
+          <a href={getLocalizedLink('/', lang)}>{t('nav.home')}</a>
+          <a href={getLocalizedLink('/tags', lang)}>{t('nav.tags')}</a>
+          <a href={getLocalizedLink('/search', lang)}>{t('nav.search')}</a>
+          <a href={getLocalizedLink('/about', lang)}>{t('nav.about')}</a>
+
+          <a
+            href={switchLangUrl}
+            class="lang-btn"
+            aria-label={`Switch to ${oppositeLang === 'en' ? 'English' : 'Portuguese'}`}
+          >
+            {oppositeLang === 'en' ? 'EN' : 'PT'}
+          </a>
+
           <button
             id="theme-toggle"
             aria-label="Toggle dark mode"
@@ -147,10 +167,10 @@ const canonicalURL = new URL(
     <footer class="footer">
       <div class="container footer-container">
         <p class="footer-copy">
-          &copy; {new Date().getFullYear()} Argon. All rights reserved.
+          &copy; {new Date().getFullYear()} Argon. {t('footer.rights')}
         </p>
         <p class="footer-desc">
-          A blog about Systems Engineering & Distributed Infrastructure.
+          {t('footer.desc')}
         </p>
         <a href={`${import.meta.env.BASE_URL}rss.xml`} class="rss-link">
           RSS Feed
@@ -249,6 +269,28 @@ const canonicalURL = new URL(
   .theme-btn:hover {
     background: var(--color-bg-surface-hover);
     color: var(--color-text);
+  }
+
+  /* Language Switcher Button */
+  .lang-btn {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    transition: var(--transition-fast);
+    line-height: 1.2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lang-btn:hover {
+    background: var(--color-bg-surface-hover);
+    color: var(--color-text);
+    border-color: var(--color-border-hover);
   }
 
   /* Show/hide icons depending on theme */
