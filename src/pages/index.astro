@@ -1,17 +1,308 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import { getPosts } from '../utils/posts';
 
+const posts = await getPosts();
+
+// Formatting the date helper
+const formatDate = (date: Date) => {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+};
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+<Layout title="Argon | Systems Engineering & Architecture Blog">
+  <section class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-glow"></div>
+      <h1 class="hero-title">
+        Exploring the Depths of <span class="text-gradient"
+          >Systems Engineering</span
+        > & <span class="text-gradient">Distributed Systems</span>
+      </h1>
+      <p class="hero-subtitle">
+        Argon is a technical blog sharing deep dives, system design blueprints,
+        and infrastructure lessons learned in the trenches of software
+        development.
+      </p>
+    </div>
+  </section>
+
+  <section class="posts-section container">
+    <h2 class="section-title">Latest Articles</h2>
+
+    {
+      posts.length === 0 ? (
+        <div class="glass-card no-posts">
+          <p>No articles published yet. Check back soon!</p>
+        </div>
+      ) : (
+        <div class="posts-grid">
+          {posts.map((post) => (
+            <article class="glass-card post-card">
+              {post.data.cover && (
+                <a
+                  href={`${Astro.site?.pathname || '/argon/'}posts/${post.data.slug}`}
+                  class="post-cover-link"
+                >
+                  <div class="post-cover-wrapper">
+                    <img
+                      src={post.data.cover.src}
+                      alt={post.data.title}
+                      class="post-cover"
+                    />
+                  </div>
+                </a>
+              )}
+              <div class="post-content">
+                <div class="post-meta">
+                  <time datetime={post.data.date.toISOString()}>
+                    {formatDate(post.data.date)}
+                  </time>
+                  <div class="post-tags">
+                    {post.data.tags.slice(0, 2).map((tag) => (
+                      <span class="post-tag">#{tag}</span>
+                    ))}
+                  </div>
+                </div>
+                <h3 class="post-title">
+                  <a
+                    href={`${Astro.site?.pathname || '/argon/'}posts/${post.data.slug}`}
+                  >
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p class="post-excerpt">
+                  Deep dive exploration of {post.data.title.toLowerCase()}.
+                  Learn the core principles, design choices, and systems
+                  architecture.
+                </p>
+                <a
+                  href={`${Astro.site?.pathname || '/argon/'}posts/${post.data.slug}`}
+                  class="read-more-btn"
+                >
+                  Read Article
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="arrow-icon"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    padding: 6rem 0 4rem;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .hero-container {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(
+      circle,
+      var(--color-accent-glow) 0%,
+      rgba(255, 255, 255, 0) 70%
+    );
+    z-index: -1;
+    pointer-events: none;
+    filter: blur(50px);
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.05em;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-secondary) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Posts Grid */
+  .posts-section {
+    padding-bottom: 6rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    letter-spacing: -0.03em;
+  }
+
+  .no-posts {
+    padding: 3rem;
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-cols: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .posts-grid {
+      grid-template-cols: repeat(2, 1fr);
+    }
+  }
+
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .post-cover-link {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .post-cover-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .post-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+  }
+
+  .post-card:hover .post-cover {
+    transform: scale(1.03);
+  }
+
+  .post-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .post-tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .post-tag {
+    color: var(--color-secondary);
+    font-weight: 600;
+  }
+
+  .post-title {
+    font-size: 1.35rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  .post-title a {
+    color: var(--color-text);
+    transition: var(--transition-fast);
+  }
+
+  .post-title a:hover {
+    color: var(--color-primary);
+  }
+
+  .post-excerpt {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+    flex: 1;
+  }
+
+  .read-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-primary);
+    transition: var(--transition-fast);
+  }
+
+  .read-more-btn:hover {
+    color: var(--color-primary-hover);
+  }
+
+  .arrow-icon {
+    transition: transform 0.2s ease;
+  }
+
+  .read-more-btn:hover .arrow-icon {
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+  }
+</style>
