@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, date, tags, cover, slug } = post.data;
+const { title, date, tags, cover, slug, description } = post.data;
 
 // Formatting the date nicely
 const formattedDate = new Date(date).toLocaleDateString('en-US', {
@@ -19,7 +19,8 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 
 <Layout
   title={`${title} | Argon`}
-  description={`${title} - Argon technical article.`}
+  description={description || `${title} - Argon technical article.`}
+  cover={cover ? cover.src : undefined}
 >
   <article class="article-container container">
     <header class="article-header">

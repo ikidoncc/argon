@@ -8,6 +8,7 @@ tags:
   - astro
   - static-site
 cover: './cover.png'
+description: 'Welcome to Argon, a personal blog and knowledge repository where I share articles, notes, experiments, and insights about software engineering, computer science, and systems design.'
 draft: false
 ---
 
