@@ -1,0 +1,59 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+  title="404: Page Not Found"
+  description="The page you are looking for does not exist or has been moved."
+>
+  <div class="error-container">
+    <div class="error-code">404</div>
+    <p class="error-text">
+      We couldn't find the resource you were looking for. Use the links below to
+      find your way back.
+    </p>
+    <div class="actions">
+      <a href={import.meta.env.BASE_URL} class="btn btn-primary">
+        Go Back Home
+      </a>
+      <a href={`${import.meta.env.BASE_URL}search`} class="btn btn-secondary">
+        Search Articles
+      </a>
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 0;
+  }
+
+  .error-code {
+    font-family: var(--font-display);
+    font-size: 8rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.05em;
+  }
+
+  .error-text {
+    max-width: 500px;
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+</style>
