@@ -1,0 +1,104 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getPosts } from '../../utils/posts';
+
+const posts = await getPosts();
+
+// Count tag frequencies
+const tagCounts: Record<string, number> = {};
+posts.forEach((post) => {
+  post.data.tags.forEach((tag) => {
+    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+  });
+});
+
+const tags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]);
+---
+
+<PageLayout
+  title="Tags"
+  description="Browse technical articles by topic and category."
+>
+  <div class="tags-container">
+    {
+      tags.length === 0 ? (
+        <div class="glass-card no-tags">
+          <p>No tags found.</p>
+        </div>
+      ) : (
+        <div class="tags-grid">
+          {tags.map((tag) => (
+            <a
+              href={`${Astro.site?.pathname || '/argon/'}tags/${tag}`}
+              class="tag-card glass-card"
+            >
+              <span class="tag-hash">#</span>
+              <span class="tag-name">{tag}</span>
+              <span class="tag-count">{tagCounts[tag]}</span>
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</PageLayout>
+
+<style>
+  .tags-container {
+    padding-top: 1rem;
+  }
+
+  .no-tags {
+    padding: 3rem;
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+
+  .tags-grid {
+    display: grid;
+    grid-template-cols: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .tag-card {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    transition: var(--transition-smooth);
+    border-radius: var(--radius-md);
+  }
+
+  .tag-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+
+  .tag-hash {
+    color: var(--color-primary);
+    margin-right: 0.15rem;
+    font-size: 1.1rem;
+  }
+
+  .tag-name {
+    color: var(--color-text);
+    flex: 1;
+    font-size: 1.05rem;
+  }
+
+  .tag-count {
+    font-size: 0.85rem;
+    color: var(--color-secondary);
+    background: var(--color-accent-glow);
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(0, 240, 255, 0.1);
+  }
+
+  .tag-card:hover .tag-count {
+    background: var(--color-secondary-hover);
+    color: #ffffff;
+    border-color: var(--color-secondary);
+  }
+</style>
