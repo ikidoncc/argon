@@ -221,10 +221,10 @@ Enable local content search.
 
 ### Tasks
 
-- [ ] Integrate Pagefind
-- [ ] Index articles
-- [ ] Create search UI
-- [ ] Test search functionality
+- [x] Integrate Pagefind
+- [x] Index articles
+- [x] Create search UI
+- [x] Test search functionality
 
 ### Deliverable
 
@@ -240,10 +240,10 @@ Provide theme support.
 
 ### Tasks
 
-- [ ] Create dark theme
-- [ ] Create light theme
-- [ ] Theme switcher
-- [ ] Persist theme preference
+- [x] Create dark theme
+- [x] Create light theme
+- [x] Theme switcher
+- [x] Persist theme preference
 
 ### Deliverable
 
@@ -259,11 +259,11 @@ Improve search engine visibility.
 
 ### Tasks
 
-- [ ] Meta title generation
-- [ ] Meta description generation
-- [ ] Canonical URLs
-- [ ] Open Graph metadata
-- [ ] Twitter Card metadata
+- [x] Meta title generation
+- [x] Meta description generation
+- [x] Canonical URLs
+- [x] Open Graph metadata
+- [x] Twitter Card metadata
 
 ### Deliverable
 
@@ -279,8 +279,8 @@ Support search engine indexing.
 
 ### Tasks
 
-- [ ] Generate sitemap.xml
-- [ ] Validate sitemap
+- [x] Generate sitemap.xml
+- [x] Validate sitemap
 
 ### Deliverable
 
@@ -296,9 +296,9 @@ Support content syndication.
 
 ### Tasks
 
-- [ ] Generate RSS feed
-- [ ] Validate feed structure
-- [ ] Expose feed URL
+- [x] Generate RSS feed
+- [x] Validate feed structure
+- [x] Expose feed URL
 
 ### Deliverable
 
@@ -314,8 +314,8 @@ Provide crawler instructions.
 
 ### Tasks
 
-- [ ] Generate robots.txt
-- [ ] Reference sitemap
+- [x] Generate robots.txt
+- [x] Reference sitemap
 
 ### Deliverable
 
@@ -331,8 +331,8 @@ Improve user experience.
 
 ### Tasks
 
-- [ ] Create 404 page
-- [ ] Configure fallback behavior
+- [x] Create 404 page
+- [x] Configure fallback behavior
 
 ### Deliverable
 
@@ -348,10 +348,10 @@ Support article resources.
 
 ### Tasks
 
-- [ ] Image support
-- [ ] PDF support
-- [ ] Video support
-- [ ] Downloadable assets
+- [x] Image support
+- [x] PDF support
+- [x] Video support
+- [x] Downloadable assets
 
 ### Deliverable
 
@@ -367,10 +367,10 @@ Meet performance targets.
 
 ### Tasks
 
-- [ ] Optimize images
-- [ ] Reduce JavaScript
-- [ ] Validate bundle size
-- [ ] Test page speed
+- [x] Optimize images
+- [x] Reduce JavaScript
+- [x] Validate bundle size
+- [x] Test page speed
 
 ### Deliverable
 
@@ -387,25 +387,25 @@ Prepare for public release.
 ### Tasks
 
 - [x] Publish welcome article
-- [ ] Validate all links
-- [ ] Validate SEO
-- [ ] Validate RSS
-- [ ] Validate sitemap
-- [ ] Validate search
-- [ ] Validate GitHub Pages deployment
+- [x] Validate all links
+- [x] Validate SEO
+- [x] Validate RSS
+- [x] Validate sitemap
+- [x] Validate search
+- [x] Validate GitHub Pages deployment
 - [ ] Run Lighthouse audit
 
 ### Success Criteria
 
 - [ ] Lighthouse score &ge; 95
-- [ ] Build succeeds
-- [ ] Deployment succeeds
-- [ ] Search works
-- [ ] RSS works
-- [ ] Sitemap works
-- [ ] Dark mode works
-- [ ] Tags work
-- [ ] Articles render correctly
+- [x] Build succeeds
+- [x] Deployment succeeds
+- [x] Search works
+- [x] RSS works
+- [x] Sitemap works
+- [x] Dark mode works
+- [x] Tags work
+- [x] Articles render correctly
 
 ---
 
