@@ -163,10 +163,10 @@ Organize content by topic.
 
 ### Tasks
 
-- [ ] Generate tag pages
-- [ ] Create tag listing page
-- [ ] Display article counts per tag
-- [ ] Link articles to tags
+- [x] Generate tag pages
+- [x] Create tag listing page
+- [x] Display article counts per tag
+- [x] Link articles to tags
 
 ### Deliverable
 
@@ -182,10 +182,10 @@ Provide author and project information.
 
 ### Tasks
 
-- [ ] Create About page
-- [ ] Add project description
-- [ ] Add author information
-- [ ] Add social links
+- [x] Create About page
+- [x] Add project description
+- [x] Add author information
+- [x] Add social links
 
 ### Deliverable
 
@@ -201,11 +201,11 @@ Improve site usability.
 
 ### Tasks
 
-- [ ] Header navigation
-- [ ] Footer navigation
-- [ ] Home link
-- [ ] About link
-- [ ] Tags link
+- [x] Header navigation
+- [x] Footer navigation
+- [x] Home link
+- [x] About link
+- [x] Tags link
 
 ### Deliverable
 
