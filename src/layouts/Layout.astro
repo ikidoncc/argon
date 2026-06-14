@@ -6,7 +6,8 @@ import {
   getLocalizedLink,
   getLocalizedPath,
 } from '../utils/i18n';
-import { Sun, Moon, Monitor, Languages } from '@lucide/astro';
+import { Sun, Moon, Monitor, Globe, Tag, Info } from '@lucide/astro';
+import CustomSelect from '../components/CustomSelect.astro';
 
 interface Props {
   title: string;
@@ -107,32 +108,45 @@ const switchLangUrl = getLocalizedPath(Astro.url, oppositeLang);
           <span class="logo-accent">&gt;_</span> Argon
         </a>
         <nav class="nav">
-          <a href={getLocalizedLink('/', lang)}>{t('nav.home')}</a>
-          <a href={getLocalizedLink('/tags', lang)}>{t('nav.tags')}</a>
-          <a href={getLocalizedLink('/search', lang)}>{t('nav.search')}</a>
-          <a href={getLocalizedLink('/about', lang)}>{t('nav.about')}</a>
-
-          <a
-            href={switchLangUrl}
-            class="lang-btn"
-            aria-label={`Switch to ${oppositeLang === 'en' ? 'English' : 'Portuguese'}`}
-          >
-            <Languages size={16} class="lang-icon" />
-            <span>{lang.toUpperCase()}</span>
+          <a href={getLocalizedLink('/tags', lang)} class="nav-link">
+            <Tag size={16} class="nav-icon" />
+            <span>{t('nav.tags')}</span>
+          </a>
+          <a href={getLocalizedLink('/about', lang)} class="nav-link">
+            <Info size={16} class="nav-icon" />
+            <span>{t('nav.about')}</span>
           </a>
 
-          <button
-            id="theme-toggle"
-            aria-label="Toggle theme mode"
-            class="theme-btn"
+          <div class="nav-divider"></div>
+
+          <!-- Language Select -->
+          <CustomSelect
+            id="lang-select"
+            label={t('lang.label')}
+            value={lang}
+            options={[
+              { value: 'pt', text: 'PT' },
+              { value: 'en', text: 'EN' },
+            ]}
           >
-            <!-- Sun Icon (Light Mode) -->
-            <Sun class="sun-icon" size={20} />
-            <!-- Moon Icon (Dark Mode) -->
-            <Moon class="moon-icon" size={20} />
-            <!-- Monitor Icon (Automatic Mode) -->
-            <Monitor class="monitor-icon" size={20} />
-          </button>
+            <Globe size={16} slot="icon" />
+          </CustomSelect>
+
+          <!-- Theme Select -->
+          <CustomSelect
+            id="theme-select"
+            label="Theme"
+            value="auto"
+            options={[
+              { value: 'auto', text: t('theme.auto') },
+              { value: 'light', text: t('theme.light') },
+              { value: 'dark', text: t('theme.dark') },
+            ]}
+          >
+            <Sun class="select-theme-icon sun-icon" size={16} slot="icon" />
+            <Moon class="select-theme-icon moon-icon" size={16} slot="icon" />
+            <Monitor class="select-theme-icon monitor-icon" size={16} slot="icon" />
+          </CustomSelect>
         </nav>
       </div>
     </header>
@@ -143,23 +157,75 @@ const switchLangUrl = getLocalizedPath(Astro.url, oppositeLang);
 
     <footer class="footer">
       <div class="container footer-container">
-        <p class="footer-copy">
-          &copy; {new Date().getFullYear()} Argon. {t('footer.rights')}
-        </p>
         <p class="footer-desc">
           {t('footer.desc')}
         </p>
-        <a href={`${import.meta.env.BASE_URL}rss.xml`} class="rss-link">
-          RSS Feed
-        </a>
+        <div class="footer-links">
+          <a
+            href="https://astro.build"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-link"
+          >
+            {t('footer.built')} Astro
+          </a>
+          <span class="footer-dot">&middot;</span>
+          <a
+            href="https://pages.github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-link"
+          >
+            {t('footer.hosted')} GitHub Pages
+          </a>
+          <span class="footer-dot">&middot;</span>
+          <a
+            href="https://github.com/ikidoncc/argon"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-link"
+          >
+            {t('footer.source')}
+          </a>
+          <span class="footer-dot">&middot;</span>
+          <a href={`${import.meta.env.BASE_URL}rss.xml`} class="footer-link">
+            RSS
+          </a>
+        </div>
+        <p class="footer-copy">
+          &copy; {new Date().getFullYear()} Argon
+        </p>
       </div>
     </footer>
 
     <script>
-      // Client-side theme toggle logic
-      const themeToggle = document.getElementById('theme-toggle');
-      if (themeToggle) {
-        const updateTheme = (mode) => {
+      // --- Theme Select Logic ---
+      const themeSelectEl = document.getElementById('theme-select');
+
+      if (themeSelectEl) {
+        // Sync initial value from stored preference
+        const currentMode =
+          document.documentElement.getAttribute('data-theme-mode') || 'auto';
+
+        // Programmatically select the correct option on load
+        const initialOpt = themeSelectEl.querySelector<HTMLLIElement>(
+          `.cselect-option[data-value="${currentMode}"]`
+        );
+        if (initialOpt) {
+          themeSelectEl
+            .querySelectorAll('.cselect-option')
+            .forEach((o) => {
+              o.classList.remove('active');
+              o.setAttribute('aria-selected', 'false');
+            });
+          initialOpt.classList.add('active');
+          initialOpt.setAttribute('aria-selected', 'true');
+          const textEl = themeSelectEl.querySelector('.cselect-text');
+          if (textEl) textEl.textContent = initialOpt.textContent!.trim();
+          themeSelectEl.dataset.value = currentMode;
+        }
+
+        const updateTheme = (mode: string) => {
           if (
             mode === 'dark' ||
             (mode === 'auto' &&
@@ -171,33 +237,43 @@ const switchLangUrl = getLocalizedPath(Astro.url, oppositeLang);
           }
         };
 
-        themeToggle.addEventListener('click', () => {
-          const modes = ['auto', 'light', 'dark'];
-          const currentMode =
-            document.documentElement.getAttribute('data-theme-mode') || 'auto';
-          const nextIndex = (modes.indexOf(currentMode) + 1) % modes.length;
-          const nextMode = modes[nextIndex];
-
+        themeSelectEl.addEventListener('select-change', ((e: CustomEvent) => {
+          const nextMode = e.detail.value;
           document.documentElement.setAttribute('data-theme-mode', nextMode);
           localStorage.setItem('theme-mode', nextMode);
           updateTheme(nextMode);
-        });
+        }) as EventListener);
 
-        // Listen for system changes to match preferences in auto mode
+        // Listen for system changes in auto mode
         window
           .matchMedia('(prefers-color-scheme: dark)')
-          .addEventListener('change', (e) => {
-            const currentMode =
+          .addEventListener('change', () => {
+            const mode =
               document.documentElement.getAttribute('data-theme-mode') ||
               'auto';
-            if (currentMode === 'auto') {
-              if (e.matches) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-              } else {
-                document.documentElement.removeAttribute('data-theme');
-              }
+            if (mode === 'auto') {
+              updateTheme('auto');
             }
           });
+      }
+
+      // --- Language Select Logic ---
+      const langSelectEl = document.getElementById('lang-select');
+
+      if (langSelectEl) {
+        langSelectEl.addEventListener('select-change', ((e: CustomEvent) => {
+          const targetLang = e.detail.value;
+          const currentLang = document.documentElement.getAttribute('lang');
+          if (targetLang !== currentLang) {
+            // Build the switch URL by replacing the lang segment
+            const pathname = window.location.pathname;
+            const newPath = pathname.replace(
+              /\/(?:en|pt)\//,
+              `/${targetLang}/`
+            );
+            window.location.href = newPath;
+          }
+        }) as EventListener);
       }
     </script>
   </body>
@@ -240,68 +316,46 @@ const switchLangUrl = getLocalizedPath(Astro.url, oppositeLang);
   .nav {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
-  .nav a {
+  /* Nav links with icons */
+  .nav-link {
     font-family: var(--font-display);
     font-weight: 600;
     color: var(--color-text-muted);
     font-size: 0.95rem;
     transition: var(--transition-fast);
-  }
-
-  .nav a:hover {
-    color: var(--color-text);
-  }
-
-  /* Theme Button & Switcher */
-  .theme-btn {
-    background: none;
-    border: none;
-    padding: 0.5rem;
-    border-radius: var(--radius-sm);
-    color: var(--color-text-muted);
-    cursor: pointer;
-    transition: var(--transition-fast);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .theme-btn:hover {
-    background: var(--color-bg-surface-hover);
-    color: var(--color-text);
-  }
-
-  /* Language Switcher Button */
-  .lang-btn {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.8rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--radius-sm);
-    color: var(--color-text-muted);
-    border: 1px solid var(--color-border);
-    transition: var(--transition-fast);
-    line-height: 1.2;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 0.35rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: var(--radius-sm);
   }
 
-  .lang-btn:hover {
-    background: var(--color-bg-surface-hover);
+  .nav-link:hover {
     color: var(--color-text);
-    border-color: var(--color-border-hover);
+    background: var(--color-bg-surface-hover);
   }
 
-  /* Show/hide icons depending on theme mode */
-  .sun-icon,
-  .moon-icon,
-  .monitor-icon {
+  .nav-icon {
+    flex-shrink: 0;
+  }
+
+  /* Divider between nav links and selects */
+  .nav-divider {
+    width: 1px;
+    height: 1.25rem;
+    background: var(--color-border);
+    margin: 0 0.25rem;
+  }
+
+  /* Theme icon in select — show/hide based on mode */
+  .select-theme-icon {
     display: none;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    pointer-events: none;
   }
 
   :root[data-theme-mode='light'] .sun-icon {
@@ -326,37 +380,58 @@ const switchLangUrl = getLocalizedPath(Astro.url, oppositeLang);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
     text-align: center;
-  }
-
-  .footer-copy {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    margin-bottom: 0;
   }
 
   .footer-desc {
     font-size: 0.85rem;
     color: var(--color-text-muted);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0;
+    max-width: 500px;
+    line-height: 1.5;
   }
 
-  .rss-link {
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-link {
     font-size: 0.85rem;
     color: var(--color-text-muted);
-    text-decoration: underline;
     transition: var(--transition-fast);
   }
 
-  .rss-link:hover {
+  .footer-link:hover {
     color: var(--color-primary);
+  }
+
+  .footer-dot {
+    color: var(--color-border);
+    font-size: 0.85rem;
+    user-select: none;
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+    opacity: 0.7;
   }
 
   @media (max-width: 600px) {
     .header-container {
       flex-direction: column;
       gap: 1rem;
+    }
+
+    .nav {
+      flex-wrap: wrap;
+      justify-content: center;
     }
   }
 </style>
