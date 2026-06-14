@@ -1,0 +1,301 @@
+---
+/**
+ * CustomSelect — A reusable, styled dropdown component.
+ *
+ * Props:
+ *   id          — Unique HTML id for the root element
+ *   label       — Accessible aria-label
+ *   value       — Currently selected value
+ *   options     — Array of { value: string; text: string }
+ *
+ * Slots:
+ *   icon        — Leading icon rendered before the selected text
+ */
+
+interface Option {
+  value: string;
+  text: string;
+}
+
+interface Props {
+  id: string;
+  label: string;
+  value: string;
+  options: Option[];
+}
+
+const { id, label, value, options } = Astro.props;
+const selected = options.find((o) => o.value === value) || options[0];
+---
+
+<div class="cselect" id={id} data-value={value} aria-label={label}>
+  <button
+    type="button"
+    class="cselect-trigger"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+  >
+    <span class="cselect-icon">
+      <slot name="icon" />
+    </span>
+    <span class="cselect-text">{selected.text}</span>
+    <svg
+      class="cselect-chevron"
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M3 4.5L6 7.5L9 4.5"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </button>
+
+  <ul class="cselect-menu" role="listbox" aria-label={label}>
+    {
+      options.map((opt) => (
+        <li
+          class:list={['cselect-option', { active: opt.value === value }]}
+          role="option"
+          aria-selected={opt.value === value}
+          data-value={opt.value}
+        >
+          {opt.text}
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .cselect {
+    position: relative;
+    display: inline-flex;
+  }
+
+  /* Trigger button */
+  .cselect-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.35rem 0.5rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+
+  .cselect-trigger:hover {
+    background: var(--color-bg-surface-hover);
+    border-color: var(--color-border-hover);
+  }
+
+  .cselect[data-open] .cselect-trigger,
+  .cselect-trigger:focus-visible {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-accent-glow);
+    outline: none;
+  }
+
+  /* Icon slot */
+  .cselect-icon {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  /* Chevron */
+  .cselect-chevron {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .cselect[data-open] .cselect-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Dropdown menu */
+  .cselect-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    min-width: 100%;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    padding: 0.25rem;
+    list-style: none;
+    margin: 0;
+    z-index: 200;
+
+    /* Hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px) scale(0.98);
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease,
+      visibility 0.15s;
+  }
+
+  .cselect[data-open] .cselect-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Options */
+  .cselect-option {
+    padding: 0.4rem 0.75rem;
+    border-radius: calc(var(--radius-sm) - 2px);
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    transition: var(--transition-fast);
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .cselect-option:hover,
+  .cselect-option.focused {
+    background: var(--color-bg-surface-hover);
+    color: var(--color-text);
+  }
+
+  .cselect-option.active {
+    color: var(--color-primary);
+  }
+</style>
+
+<script>
+  // Initialise all CustomSelect instances on the page
+  document.querySelectorAll<HTMLDivElement>('.cselect').forEach((root) => {
+    const trigger = root.querySelector<HTMLButtonElement>('.cselect-trigger')!;
+    const menu = root.querySelector<HTMLUListElement>('.cselect-menu')!;
+    const textEl = root.querySelector<HTMLSpanElement>('.cselect-text')!;
+    const options = Array.from(
+      root.querySelectorAll<HTMLLIElement>('.cselect-option')
+    );
+
+    let focusedIndex = options.findIndex((o) =>
+      o.classList.contains('active')
+    );
+
+    // --- Toggle ---
+    function open() {
+      root.setAttribute('data-open', '');
+      trigger.setAttribute('aria-expanded', 'true');
+      if (focusedIndex >= 0) {
+        setFocused(focusedIndex);
+      }
+    }
+
+    function close() {
+      root.removeAttribute('data-open');
+      trigger.setAttribute('aria-expanded', 'false');
+      clearFocused();
+    }
+
+    function toggle() {
+      root.hasAttribute('data-open') ? close() : open();
+    }
+
+    // --- Focus helpers ---
+    function clearFocused() {
+      options.forEach((o) => o.classList.remove('focused'));
+    }
+
+    function setFocused(idx: number) {
+      clearFocused();
+      focusedIndex = idx;
+      options[idx]?.classList.add('focused');
+      options[idx]?.scrollIntoView({ block: 'nearest' });
+    }
+
+    // --- Selection ---
+    function selectOption(opt: HTMLLIElement) {
+      const val = opt.dataset.value!;
+      const text = opt.textContent!.trim();
+
+      // Update visual state
+      options.forEach((o) => {
+        o.classList.remove('active');
+        o.setAttribute('aria-selected', 'false');
+      });
+      opt.classList.add('active');
+      opt.setAttribute('aria-selected', 'true');
+      textEl.textContent = text;
+      root.dataset.value = val;
+
+      // Dispatch a native-like change event for consumers
+      root.dispatchEvent(
+        new CustomEvent('select-change', { detail: { value: val }, bubbles: true })
+      );
+
+      close();
+      trigger.focus();
+    }
+
+    // --- Event listeners ---
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggle();
+    });
+
+    options.forEach((opt, i) => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        selectOption(opt);
+      });
+      opt.addEventListener('mouseenter', () => setFocused(i));
+    });
+
+    // Keyboard navigation
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!root.hasAttribute('data-open')) {
+          open();
+        }
+        const dir = e.key === 'ArrowDown' ? 1 : -1;
+        const next = Math.max(
+          0,
+          Math.min(options.length - 1, focusedIndex + dir)
+        );
+        setFocused(next);
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (root.hasAttribute('data-open') && focusedIndex >= 0) {
+          selectOption(options[focusedIndex]);
+        } else {
+          toggle();
+        }
+      } else if (e.key === 'Escape') {
+        close();
+      }
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!root.contains(e.target as Node)) {
+        close();
+      }
+    });
+  });
+</script>
